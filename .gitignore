@@ -127,3 +127,10 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# SQLite3
+*.db
+*.db-journal
+
+# Dot-env
+.env
