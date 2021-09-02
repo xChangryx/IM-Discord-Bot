@@ -8,16 +8,7 @@ conn = sqlite3.connect(DB_PATH)
 c = conn.cursor()
 
 def get_role_from_reaction(payload) -> int:
-    if isinstance(payload.emoji, str):
-        c.execute(
-            f"SELECT role_id FROM reactions "
-            f"WHERE guild_id={payload.guild_id} "
-            f"AND channel_id={payload.channel_id} "
-            f"AND message_id={payload.message_id} "
-            f"AND is_custom_reaction=0 "
-            f"AND reaction_text='{payload.emoji.name}';"
-        )
-    else:
+    if payload.emoji.is_custom_emoji():
         c.execute(
             f"SELECT role_id FROM reactions "
             f"WHERE guild_id={payload.guild_id} "
@@ -26,7 +17,18 @@ def get_role_from_reaction(payload) -> int:
             f"AND is_custom_reaction=1 "
             f"AND reaction_id={payload.emoji.id};"
         )
-    return c.fetchone()[0]
+    else:
+        c.execute(
+            f"SELECT role_id FROM reactions "
+            f"WHERE guild_id={payload.guild_id} "
+            f"AND channel_id={payload.channel_id} "
+            f"AND message_id={payload.message_id} "
+            f"AND is_custom_reaction=0 "
+            f"AND reaction_text='{payload.emoji.name}';"
+        )
+
+    result = c.fetchone()
+    return result[0] if result else None
 
 def add_reaction(guild_id, channel_id, message_id, reaction_id,
             reaction_text, is_custom_reaction, role_id) -> None:

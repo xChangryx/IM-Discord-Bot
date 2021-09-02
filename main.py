@@ -1,4 +1,4 @@
-__version__ = "1.0.2"
+__version__ = "1.0.3"
 
 from asyncio.tasks import create_task
 import os
@@ -46,12 +46,12 @@ class RoleReactionEmbed:
 
     def save(self) -> None: 
         for emoji in self.reactions:
-            if isinstance(emoji, str):
+            if len(emoji) > 1:
                 DB.add_reaction(
                     self.output.guild.id,
                     self.output.channel.id,
                     self.output.id,
-                    0, emoji, 0,
+                    int(emoji), "", 1,
                     int(self.reactions[emoji])
                 )
             else:
@@ -59,7 +59,7 @@ class RoleReactionEmbed:
                     self.output.guild.id,
                     self.output.channel.id,
                     self.output.id,
-                    emoji.id, "", 1,
+                    0, emoji, 0,
                     int(self.reactions[emoji])
                 )
 
@@ -74,9 +74,7 @@ class RoleReactionEmbed:
     async def send(self) -> None:
         self.output = await self.input.channel.send(embed=self.create_embed())
         for emoji in self.reactions:
-            print(emoji)
             if len(emoji) > 1: emoji = client.get_emoji(int(emoji))
-            print(emoji)
             await self.output.add_reaction(emoji)
         self.save()
 
@@ -97,8 +95,8 @@ async def on_raw_reaction_add(payload):
     if not role_id: return
     
     guild = client.get_guild(payload.guild_id)
-    member = guild.get_member(payload.user_id)
-    member.add_roles([guild.get_role(role_id)])
+    member = await guild.fetch_member(payload.user_id)
+    await member.add_roles(guild.get_role(role_id))
 
 
 @client.event
