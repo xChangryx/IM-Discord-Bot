@@ -1,4 +1,4 @@
-__version__ = "1.0.3"
+__version__ = "1.1.0"
 
 from asyncio.tasks import create_task
 import os
@@ -97,6 +97,17 @@ async def on_raw_reaction_add(payload):
     guild = client.get_guild(payload.guild_id)
     member = await guild.fetch_member(payload.user_id)
     await member.add_roles(guild.get_role(role_id))
+
+
+@client.event
+async def on_raw_reaction_remove(payload):
+    if payload.user_id == client.user.id: return
+    role_id = DB.get_role_from_reaction(payload)
+    if not role_id: return
+
+    guild = client.get_guild(payload.guild_id)
+    member = await guild.fetch_member(payload.user_id)
+    await member.remove_roles(guild.get_role(role_id))
 
 
 @client.event
