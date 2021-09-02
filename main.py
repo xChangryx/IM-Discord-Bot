@@ -1,4 +1,4 @@
-__version__ = "1.0.1"
+__version__ = "1.0.2"
 
 from asyncio.tasks import create_task
 import os
@@ -74,6 +74,9 @@ class RoleReactionEmbed:
     async def send(self) -> None:
         self.output = await self.input.channel.send(embed=self.create_embed())
         for emoji in self.reactions:
+            print(emoji)
+            if len(emoji) > 1: emoji = client.get_emoji(int(emoji))
+            print(emoji)
             await self.output.add_reaction(emoji)
         self.save()
 
