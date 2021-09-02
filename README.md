@@ -11,7 +11,8 @@ To use the bot write:
 :emoji3: -> @role3
 ```
 You can add as many roles as you want, replace `->` with whatever you want, you can even add your own text within the message, just make sure that each new role is on a separate line and the first line only says `!roles`.  
-An embed will be generated containing the entire message except the first line and the bot will automatically react to the message with the emojis used.
+An embed will be generated containing the entire message except the first line and the bot will automatically react to the message with the emojis used.  
+The bot cannot automatically delete your message if you are the server owner or above it on the role hierarchy, so please delete your original message after the embed has been generated.
 
 **Supported emojis:**
 - Native
