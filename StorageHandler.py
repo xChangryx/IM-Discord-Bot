@@ -52,7 +52,7 @@ def remove_reaction(guild_id, channel_id, message_id, reaction_id,
 
 def remove_reactions(payload) -> None:
     c.execute(
-        f"REMOVE FROM reactions "
+        f"DELETE FROM reactions "
         f"WHERE guild_id={payload.guild_id} "
         f"AND channel_id={payload.channel_id} "
         f"AND message_id={payload.message_id};"
