@@ -96,7 +96,9 @@ async def on_raw_reaction_add(payload):
     
     guild = client.get_guild(payload.guild_id)
     member = await guild.fetch_member(payload.user_id)
-    await member.add_roles(guild.get_role(role_id))
+    try:
+        await member.add_roles(guild.get_role(role_id))
+    except: pass
 
 
 @client.event
@@ -107,7 +109,9 @@ async def on_raw_reaction_remove(payload):
 
     guild = client.get_guild(payload.guild_id)
     member = await guild.fetch_member(payload.user_id)
-    await member.remove_roles(guild.get_role(role_id))
+    try:
+        await member.remove_roles(guild.get_role(role_id))
+    except: pass
 
 
 @client.event
