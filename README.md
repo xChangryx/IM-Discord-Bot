@@ -1,5 +1,6 @@
 # IM-Discord-Bot
-**A discord bot to add roles through reactions**
+**A discord bot to add roles through reactions**  
+[Invite the bot to your server](https://discord.com/api/oauth2/authorize?client_id=883000459281989672&permissions=8&scope=bot)
 
 ## How to use
 To use the bot write:
@@ -12,16 +13,16 @@ To use the bot write:
 You can add as many roles as you want, replace `->` with whatever you want, you can even add your own text within the message, just make sure that each new role is on a separate line and the first line only says `!roles`.  
 An embed will be generated containing the entire message except the first line and the bot will automatically react to the message with the emojis used.
 
-Supported emojis:
+**Supported emojis:**
 - Native
 - Custom
 - Animated
 
-Dont use:
+**Not supported:**
 - Emojis from other servers
 
 ## How to host
-To host the bot you must first create one through the [Discord Developer Portal](https://discord.com/developers/applications).  
+If you would like to host your own version you must first create a bot through the [Discord Developer Portal](https://discord.com/developers/applications).  
 Next you must copy the token and put it in a `.env` file in the same folder as the code.  
 The `.env` file should look like this:
 ```env
