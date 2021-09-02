@@ -1,11 +1,24 @@
 import sqlite3
+import os
 
 DB_PATH = "data.db"
+
+new_db = not os.path.isfile(DB_PATH)
 
 # reactions (guild_id int, channel_id int, message_id int, reaction_id int, reaction_text text, is_custom_reaction int, role_id int)
 
 conn = sqlite3.connect(DB_PATH)
 c = conn.cursor()
+
+if new_db:
+    c.execute(
+        "CREATE TABLE reactions "
+        "(guild_id int, channel_id int, "
+        "message_id int, reaction_id int, "
+        "reaction_text text, "
+        "is_custom_reaction int, role_id int)"
+    )
+    conn.commit()
 
 def get_role_from_reaction(payload) -> int:
     if payload.emoji.is_custom_emoji():
