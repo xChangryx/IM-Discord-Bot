@@ -1,7 +1,8 @@
 # IM-Discord-Bot
 **A discord bot to add roles through reactions**
 
-## To use the bot write:
+## How to use
+To use the bot write:
 ```py
 !roles
 :emoji: -> @role
