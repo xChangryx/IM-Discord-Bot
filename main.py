@@ -85,7 +85,7 @@ class RoleReactionEmbed:
 
 @client.event
 async def on_ready():
-    print("Online")
+    print(f"Online - {__version__}")
 
 
 @client.event
