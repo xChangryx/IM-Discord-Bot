@@ -1,4 +1,4 @@
-__version__ = "1.1.0"
+__version__ = "1.1.1"
 
 from asyncio.tasks import create_task
 import os
@@ -118,6 +118,8 @@ async def on_raw_reaction_remove(payload):
 async def on_message(message):
     if message.author == client.user: return
     if str(message.channel.type) == "private": return
+    if not message.content: return
+    if not message.content.splitlines(): return
     if message.content.splitlines()[0].lower() != "!roles": return
     if not message.channel.permissions_for(message.author).administrator: return
 
